@@ -7,6 +7,7 @@ import Nav from '@/components/Nav.vue'
 import Layout from '@/components/Layout.vue'
 import Icon from '@/components/Icon.vue'
 
+
 Vue.config.productionTip = false
 
 Vue.component('Nav', Nav)
