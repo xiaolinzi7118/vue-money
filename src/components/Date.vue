@@ -53,6 +53,7 @@ export default class Detail extends Vue {
     this.show = true;
   }
 
+
   xxx() {
     this.show = true;
   }
@@ -73,6 +74,7 @@ export default class Detail extends Vue {
 
   confirmFn() { // 确定按钮
     this.timeValue = this.timeFormat(this.currentDate);
+    this.$emit('update:value', this.time);
     this.show = false;
   }
 
@@ -87,7 +89,6 @@ export default class Detail extends Vue {
     // if(today===timeToday){
     //   return '今天'
     // }
-    this.$emit('update:value', this.time);
     return this.time
   }
 

@@ -4,7 +4,7 @@
       <Types :value.sync="recordList.type"></Types>
       <div class="count" :class="recordList.type==='-'?'out':'in'">{{ count }}</div>
       <Tags :select-tag.sync="recordList.selectTag" :type="recordList.type"></Tags>
-      <Date class="date" @update:value="onUpdateDate"></Date>
+      <Date class="date" @update:value="onUpdateDate" ></Date>
       <Notes @update:value="onUpdateNotes"></Notes>
       <div class="numberPad">
         <div class="buttons">
@@ -96,7 +96,7 @@ export default class Money extends Vue {
   ok(){
     this.recordList.output=parseFloat(this.count);
     window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
-    this.count='0';
+    this.count='0'
   }
   onUpdateDate(value:string){
     this.recordList.date=value;
@@ -109,10 +109,6 @@ export default class Money extends Vue {
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column;
-}
-
-.notes {
-  padding: 12px 0;
 }
 
 .count {
