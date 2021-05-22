@@ -40,6 +40,7 @@
           </li>
         </ul>
       </div>
+      <Date class="date"></Date>
       <div>
         <label class="notes">
           <span class="name">备注：</span>
@@ -71,8 +72,11 @@
 <script lang="ts">
 import Vue from "vue";
 import {Component} from "vue-property-decorator";
+import Date from "@/components/Date.vue";
 
-@Component
+@Component({
+  components: {Date}
+})
 export default class Money extends Vue {
   type = '-';
   count = '0';
@@ -216,14 +220,13 @@ export default class Money extends Vue {
 }
 
 .tags {
-  height: 216px;
+  height: 164px;
   width: 100%;
   display: flex;
   border-top: 2px solid rgba(0, 0, 0, 0.05);
   background: #fbfcff;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-bottom: 24px;
   justify-content: center;
   align-items: center;
 
@@ -249,6 +252,7 @@ export default class Money extends Vue {
 }
 
 .notes {
+
   font-size: 14px;
   padding-left: 16px;
   display: flex;
@@ -265,6 +269,10 @@ export default class Money extends Vue {
     border: none;
     padding-right: 16px;
   }
+}
+
+.date {
+
 }
 
 @import "~@/assets/style/helper.scss";
