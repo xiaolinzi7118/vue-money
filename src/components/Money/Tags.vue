@@ -29,14 +29,70 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 
 @Component
 export default class Tags extends Vue{
-
+  @Prop() readonly selectTag!:string
+  @Prop() readonly type!:string
+  tagList1=[
+    {name: '4', value: '餐费'},
+    {name: '5', value: '早餐'},
+    {name: '6', value: '午餐'},
+    {name: '7', value: '晚费'},
+    {name: '8', value: '零食'},
+    {name: '9', value: '水果'},
+    {name: '10', value: '买菜'},
+    {name: '11', value: '烟酒'},
+    {name: '12', value: '购物'}
+  ];
+  tagList2 = [
+    {name: '14', value: '工资'},
+    {name: '15', value: '收租'},
+    {name: '16', value: '兼职'},
+    {name: '17', value: '报销'},
+    {name: '18', value: '奖金'},
+    {name: '19', value: '红包'},
+    {name: '20', value: '理财'},
+    {name: '21', value: '投资'},
+    {name: '22', value: '礼金'}
+  ];
+ toggle(tag: string): void {
+    this.$emit('update:selectTag',tag)
+  }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.tags {
+  height: 164px;
+  width: 100%;
+  display: flex;
+  border-top: 2px solid rgba(0, 0, 0, 0.05);
+  background: #fbfcff;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 
+  > li {
+    width: 64px;
+    height: 64px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &.selected {
+      background: white;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .icon {
+    width: 2em;
+    height: 2em;
+    margin: 1px;
+  }
+}
 </style>

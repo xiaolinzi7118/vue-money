@@ -43,6 +43,7 @@ export default class Detail extends Vue {
   show = false;
   msg = '';
   timeValue = '今天';
+  time='';
 
   // showPopup() {
   //   this.show = true;
@@ -72,7 +73,6 @@ export default class Detail extends Vue {
 
   confirmFn() { // 确定按钮
     this.timeValue = this.timeFormat(this.currentDate);
-    console.log('this.currentDate', this.currentDate)
     this.show = false;
   }
 
@@ -82,16 +82,13 @@ export default class Detail extends Vue {
 
   timeFormat(time:Date) { // 时间格式化 2019-09-08
     const DATE_FORMAT = 'yyyy-MM-DD'
-    const today = moment(new Date()).format(DATE_FORMAT)
-    const timeToday  = moment(time).format(DATE_FORMAT)
-    if(today===timeToday){
-      return '今天'
-    }
-    return timeToday
-    // let year = time.getFullYear();
-    // let month = time.getMonth() + 1;
-    // let day = time.getDate();
-    // return year + '-' + month + '-' + day
+    // const today = moment(new Date()).format(DATE_FORMAT)
+    this.time  = moment(time).format(DATE_FORMAT)
+    // if(today===timeToday){
+    //   return '今天'
+    // }
+    this.$emit('update:value', this.time);
+    return this.time
   }
 
   mounted() {

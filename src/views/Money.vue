@@ -2,40 +2,10 @@
   <div>
     <Layout class-prefix="layout">
       <Types :value.sync="recordList.type"></Types>
-      <div class="count" :class="recordList.type==='-'?'out':'in'">{{recordList.count }}</div>
-      <div v-if="recordList.type==='-'">
-        <ul class="tags">
-          <li v-for="tag in recordList.tagList1" :key="tag.value" @click="toggle(tag.value)"
-              :class="{selected:recordList.selectTag===tag.value}">
-            <Icon :name="tag.name"></Icon>
-            <div>{{ tag.value }}</div>
-          </li>
-          <li>
-            <Icon name="13" class="icon"></Icon>
-            <div>其他</div>
-          </li>
-        </ul>
-      </div>
-      <div v-else>
-        <ul class="tags">
-          <li v-for="tag in recordList.tagList2" :key="tag.value" @click="toggle(tag.value)"
-              :class="{selected:recordList.selectTag===tag.value}">
-            <Icon :name="tag.name"></Icon>
-            <div>{{ tag.value }}</div>
-          </li>
-          <li>
-            <Icon name="13" class="icon"></Icon>
-            <div>其他</div>
-          </li>
-        </ul>
-      </div>
-      <Date class="date"></Date>
-      <div>
-        <label class="notes">
-          <span class="name">备注：</span>
-          <input type="text" placeholder="在这里输入备注" v-model="recordList.notes">
-        </label>
-      </div>
+      <div class="count" :class="recordList.type==='-'?'out':'in'">{{ count }}</div>
+      <Tags :select-tag.sync="recordList.selectTag" :type="recordList.type"></Tags>
+      <Date class="date" @update:value="onUpdateDate"></Date>
+      <Notes @update:value="onUpdateNotes"></Notes>
       <div class="numberPad">
         <div class="buttons">
           <button @click="inputContent">1</button>
@@ -49,7 +19,7 @@
           <button @click="inputContent">7</button>
           <button @click="inputContent">8</button>
           <button @click="inputContent">9</button>
-          <button class="ok">OK</button>
+          <button @click="ok" class="ok">OK</button>
           <button @click="inputContent" class="zero">0</button>
           <button @click="inputContent">.</button>
         </div>
@@ -63,85 +33,74 @@ import Vue from "vue";
 import {Component} from "vue-property-decorator";
 import Date from "@/components/Date.vue";
 import Types from "@/components/Money/Types.vue";
+import Tags from "@/components/Money/Tags.vue";
+import Notes from "@/components/Money/Notes.vue";
 
 type Record={
   type:string
-  count:string
-  tagList1:[{name:string,value:string}]
-  tagList2:[{name:string,value:string}]
+  output:number
   selectTag:string
   notes:string
+  date:string
 }
 
 @Component({
-  components: {Types, Date}
+  components: {Notes, Tags, Types, Date}
 })
 export default class Money extends Vue {
   recordList:Record={
     type : '-',
-    count : '0',
-    tagList1:[
-      {name: '4', value: '餐费'},
-      {name: '5', value: '早餐'},
-      {name: '6', value: '午餐'},
-      {name: '7', value: '晚费'},
-      {name: '8', value: '零食'},
-      {name: '9', value: '水果'},
-      {name: '10', value: '买菜'},
-      {name: '11', value: '烟酒'},
-      {name: '12', value: '购物'}
-    ],
-    tagList2 : [
-      {name: '14', value: '工资'},
-      {name: '15', value: '收租'},
-      {name: '16', value: '兼职'},
-      {name: '17', value: '报销'},
-      {name: '18', value: '奖金'},
-      {name: '19', value: '红包'},
-      {name: '20', value: '理财'},
-      {name: '21', value: '投资'},
-      {name: '22', value: '礼金'}
-    ],
+    output : 0,
     selectTag :'',
-    notes : ''
+    notes : '',
+    date:''
   }
+  count='0';
 
-  toggle(tag: string): void {
-    this.recordList.selectTag = tag;
+  onUpdateNotes(value:string){
+    this.recordList.notes=value;
   }
 
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);
     const input = button.textContent!;
-    if (this.recordList.count.length === 16) {
+    if (this.count.length === 16) {
       return;
     }
-    if (this.recordList.count === '0') {
+    if (this.count === '0') {
       if ('0123456789'.indexOf(input) >= 0) {
-        this.recordList.count = input;
+        this.count = input;
       } else {
-        this.recordList.count += input;
+        this.count += input;
       }
       return;
     }
-    if (this.recordList.count.indexOf('.') >= 0 && input === '.') {
+    if (this.count.indexOf('.') >= 0 && input === '.') {
       return;
     }
-    this.recordList.count += input;
+    this.count += input;
   }
 
   remove() {
-    if (this.recordList.count.length === 1) {
-      this.recordList.count = '0';
+    if (this.count.length === 1) {
+      this.count = '0';
     } else {
-      this.recordList.count = this.recordList.count.slice(0, -1);
+      this.count = this.count.slice(0, -1);
     }
   }
 
   clear() {
-    this.recordList.count = '0';
+    this.count = '0';
   }
 
+  ok(){
+    this.recordList.output=parseFloat(this.count);
+    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+    this.count='0';
+  }
+  onUpdateDate(value:string){
+    this.recordList.date=value;
+  }
 }
 
 </script>
@@ -171,61 +130,6 @@ export default class Money extends Vue {
   color: red;
 }
 
-.tags {
-  height: 164px;
-  width: 100%;
-  display: flex;
-  border-top: 2px solid rgba(0, 0, 0, 0.05);
-  background: #fbfcff;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  > li {
-    width: 64px;
-    height: 64px;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    &.selected {
-      background: white;
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-    }
-  }
-
-  .icon {
-    width: 2em;
-    height: 2em;
-    margin: 1px;
-  }
-}
-
-.notes {
-
-  font-size: 14px;
-  padding-left: 16px;
-  display: flex;
-  align-items: center;
-
-  .name {
-    padding-right: 12px;
-  }
-
-  input {
-    height: 16px;
-    flex-grow: 1;
-    background: transparent;
-    border: none;
-    padding-right: 16px;
-  }
-}
-
-.date {
-
-}
 
 @import "~@/assets/style/helper.scss";
 
