@@ -1,19 +1,23 @@
 <template>
-    <div class="pickDate" >
-      <van-button round  plain type="primary" class="pick" @click="showPopFn">请选择日期</van-button>
-      <van-field class="result" v-model="timeValue" readonly/>
-      <van-popup v-model="show" round position="bottom" :style="{ height: '50%' }">
-        <van-datetime-picker
-            v-model="currentDate"
-            type="date"
-            title="选择年月日"
-            :min-date="minDate"
-            :max-date="maxDate"
-            :formatter="formatter"
-            @confirm="confirmFn"
-            @cancel="cancelFn"
-        />
-      </van-popup>
+    <div>
+      <div class="pickDate" @click="xxx">
+        <van-button round  plain type="primary" class="pick" @click="showPopFn">请选择日期</van-button>
+        <van-field class="result" v-model="timeValue" readonly/>
+      </div>
+      <div>
+        <van-popup v-model="show" round position="bottom" :style="{ height: '50%' }">
+          <van-datetime-picker
+              v-model="currentDate"
+              type="date"
+              title="选择年月日"
+              :min-date="minDate"
+              :max-date="maxDate"
+              :formatter="formatter"
+              @confirm="confirmFn"
+              @cancel="cancelFn"
+          />
+        </van-popup>
+      </div>
     </div>
 </template>
 
@@ -21,6 +25,8 @@
 import {DatetimePicker, Popup, Button, Field} from 'vant';
 import Vue from "vue";
 import {Component} from "vue-property-decorator";
+import moment from 'moment'
+
 
 @Component({
   components: {
@@ -46,6 +52,11 @@ export default class Detail extends Vue {
     this.show = true;
   }
 
+  xxx() {
+    this.show = true;
+  }
+
+
   formatter(type:string, val:string) {
     if (type === 'year') {
       return val + '年';
@@ -61,7 +72,7 @@ export default class Detail extends Vue {
 
   confirmFn() { // 确定按钮
     this.timeValue = this.timeFormat(this.currentDate);
-    console.log(this.currentDate)
+    console.log('this.currentDate', this.currentDate)
     this.show = false;
   }
 
@@ -70,10 +81,17 @@ export default class Detail extends Vue {
   }
 
   timeFormat(time:Date) { // 时间格式化 2019-09-08
-    let year = time.getFullYear();
-    let month = time.getMonth() + 1;
-    let day = time.getDate();
-    return year + '-' + month + '-' + day
+    const DATE_FORMAT = 'yyyy-MM-DD'
+    const today = moment(new Date()).format(DATE_FORMAT)
+    const timeToday  = moment(time).format(DATE_FORMAT)
+    if(today===timeToday){
+      return '今天'
+    }
+    return timeToday
+    // let year = time.getFullYear();
+    // let month = time.getMonth() + 1;
+    // let day = time.getDate();
+    // return year + '-' + month + '-' + day
   }
 
   mounted() {
@@ -91,10 +109,14 @@ export default class Detail extends Vue {
     flex-shrink: 0;
     color: black;
     border-color: black;
+    width: 120px;
+    height: 30px;
+    line-height: 16px;
   }
   .result{
-    width: 100px;
+    //width: 100px;
     border: none;
+    line-height: 16px;
   }
 }
 </style>
