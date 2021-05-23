@@ -1,0 +1,23 @@
+name: GitHub Actions Build and Deploy Demo
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: 安装依赖和编译.... 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          npm install
+          npm run build
+
+      - name: 部署到github-page...
+        uses: JamesIves/github-pages-deploy-action@4.1.3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          branch: gh-pages
+          folder: dist
