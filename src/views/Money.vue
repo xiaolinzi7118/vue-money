@@ -1,11 +1,6 @@
 <template>
   <div>
     <Layout class-prefix="layout">
-      <Types/>
-      <div class="count" :class="type==='-'?'out':'in'">{{ count }}</div>
-      <Tags/>
-      <Date class="date"></Date>
-      <Notes/>
       <div class="numberPad">
         <div class="buttons">
           <button @click="inputContent">1</button>
@@ -24,6 +19,11 @@
           <button @click="inputContent">.</button>
         </div>
       </div>
+      <Notes/>
+      <Date class="date"></Date>
+      <Tags/>
+      <div class="count" :class="type==='-'?'out':'in'">{{ count }}</div>
+      <Types/>
     </Layout>
   </div>
 </template>
@@ -92,7 +92,7 @@ export default class Money extends Vue {
 <style scoped lang="scss">
 ::v-deep .layout-content {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 
 .count {

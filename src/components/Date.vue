@@ -38,8 +38,8 @@ import moment from 'moment'
 })
 export default class Detail extends Vue {
   currentDate = new Date();
-  minDate = new Date(2020, 0, 1);
-  maxDate = new Date(2022, 11, 1);
+  minDate = new Date(2021, 0, 1);
+  maxDate = new Date(2021, 11, 31);
   show = false;
   msg = '';
   timeValue = '今天';

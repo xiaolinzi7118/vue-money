@@ -53,6 +53,10 @@ export default new Vuex.Store({
         },
         getRecord(state){
             return state.record
+        },
+        getRecordList(state){
+            return state.recordList.length>0?
+                state.recordList:JSON.parse(window.localStorage.getItem('recordList')||'[]')
         }
     },
     mutations: {
@@ -61,10 +65,14 @@ export default new Vuex.Store({
         },
         saveRecord(state, count: string) {
             state.record = {...state.record, output: parseFloat(count)}
-            const { recordList = [] }= state
-            state.recordList = (recordList.push({...state.record,id:new Date().getTime().toString(16)}), recordList)
-            window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
-            window.alert('保存成功')
+            if(state.record.selectTag!==''){
+                const list=JSON.parse(window.localStorage.getItem('recordList')||'[]');
+                state.recordList = (list.push({...state.record,id:new Date().getTime().toString(16)}), list)
+                window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
+                window.alert('保存成功')
+            }else{
+                window.alert('标签不能为空哦~')
+            }
             state.record=resetRecord
         }
     },
