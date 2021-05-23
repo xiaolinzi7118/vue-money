@@ -5,7 +5,7 @@ import moment from "moment";
 
 
 
-type Record = {
+export type IRecord = {
     id?:string
     type: string
     output: number
@@ -17,8 +17,8 @@ type Record = {
 
 
 type State ={
-    record:Record
-    recordList:Record[]
+    record:IRecord
+    recordList:IRecord[]
 }
 const today=moment(new Date()).format('yyyy-MM-DD')
 const resetRecord={

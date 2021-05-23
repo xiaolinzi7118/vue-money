@@ -30,7 +30,7 @@ export default class Notes extends Vue {
     return this.$store.getters.getNotes
   }
 
-  changeNotes(value) {
+  changeNotes(value: string) {
     this.$store.commit('updateRecord', {notes: value})
   }
 }

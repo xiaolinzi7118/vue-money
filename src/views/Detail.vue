@@ -36,6 +36,7 @@ import Vue from "vue";
 import {Button, Cell, List} from 'vant'
 import {Component} from "vue-property-decorator";
 import moment from "moment";
+import {IRecord} from "@/store";
 
 @Component({
   components: {
@@ -50,15 +51,15 @@ export default class Detail extends Vue {
 
   get list() {
     const _list = this.$store.getters.getRecordList;
-    const allDays = [...new Set(_list.map(item => item.date))];
+    const allDays = [...new Set(_list.map((item: IRecord) => item.date))];
     const newList = allDays.map(d => {
-      const data = _list.filter(item => item.date === d)
+      const data = _list.filter((item: IRecord) => item.date === d)
       return {
         date: d,
         list: data
       }
     })
-    return newList.filter(i => moment(i.date).month() + 1 === this.currentMonth)
+    return newList.filter((i: any) => moment(i.date).month() + 1 === this.currentMonth)
   }
 
   get outTotal() {
@@ -75,11 +76,11 @@ export default class Detail extends Vue {
 
 
   getTotal(type: string) {
-    const a = this.list.reduce((total, val) => {
+    const a = this.list.reduce((total: any[], val) => {
       const {list} = val;
       total = [...total, ...list]
       return total
-    }, []).filter(i => i.type === type).reduce((total, val) => {
+    }, []).filter((i: any) => i.type === type).reduce((total, val) => {
       return val.output + total
     }, 0)
     return a

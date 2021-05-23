@@ -51,7 +51,7 @@ export default class Money extends Vue {
 
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);
-    const input = button.textContent;
+    const input = button.textContent!;
     if (this.count.length === 16) {
       return;
     }
