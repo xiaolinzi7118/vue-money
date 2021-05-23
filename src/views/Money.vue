@@ -1,11 +1,11 @@
 <template>
   <div>
     <Layout class-prefix="layout">
-      <Types :value.sync="recordList.type"></Types>
-      <div class="count" :class="recordList.type==='-'?'out':'in'">{{ count }}</div>
-      <Tags :select-tag.sync="recordList.selectTag" :type="recordList.type"></Tags>
-      <Date class="date" @update:value="onUpdateDate" ></Date>
-      <Notes @update:value="onUpdateNotes"></Notes>
+      <Types/>
+      <div class="count" :class="type==='-'?'out':'in'">{{ count }}</div>
+      <Tags/>
+      <Date class="date"></Date>
+      <Notes/>
       <div class="numberPad">
         <div class="buttons">
           <button @click="inputContent">1</button>
@@ -36,30 +36,17 @@ import Types from "@/components/Money/Types.vue";
 import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 
-type Record={
-  type:string
-  output:number
-  selectTag:string
-  notes:string
-  date:string
-}
-
 @Component({
   components: {Notes, Tags, Types, Date}
 })
 export default class Money extends Vue {
-  recordList:Record={
-    type : '-',
-    output : 0,
-    selectTag :'',
-    notes : '',
-    date:''
-  }
-  count='0';
 
-  onUpdateNotes(value:string){
-    this.recordList.notes=value;
+
+  get type(){
+    return this.$store.getters.getType
   }
+
+  count='0';
 
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);
@@ -94,13 +81,10 @@ export default class Money extends Vue {
   }
 
   ok(){
-    this.recordList.output=parseFloat(this.count);
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+    this.$store.commit('saveRecord',this.count)
     this.count='0'
   }
-  onUpdateDate(value:string){
-    this.recordList.date=value;
-  }
+
 }
 
 </script>

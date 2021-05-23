@@ -2,22 +2,22 @@
   <div>
     <label class="notes">
       <span class="name">备注：</span>
-      <input type="text" placeholder="在这里输入备注" v-model="value">
+      <input type="text" placeholder="在这里输入备注" :value="value" @input="changeNotes($event)">
     </label>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import {Component, Watch} from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 
 @Component
 export default class Notes extends Vue {
-  value = '';
-
-  @Watch('value')
-  onValueChanged(value: string) {
-    this.$emit('update:value', value);
+  get value(){
+    return  this.$store.getters.getNotes
+  }
+  changeNotes(e:any){
+    this.$store.commit('updateRecord',{notes:e.target.value})
   }
 }
 </script>

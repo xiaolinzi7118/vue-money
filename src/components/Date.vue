@@ -2,7 +2,7 @@
     <div>
       <div class="pickDate" @click="xxx">
         <van-button round  plain type="primary" class="pick" @click="showPopFn">请选择日期</van-button>
-        <van-field class="result" v-model="timeValue" readonly/>
+        <van-field class="result" :value="dateTime" readonly/>
       </div>
       <div>
         <van-popup v-model="show" round position="bottom" :style="{ height: '50%' }">
@@ -43,11 +43,16 @@ export default class Detail extends Vue {
   show = false;
   msg = '';
   timeValue = '今天';
-  time='';
 
-  // showPopup() {
-  //   this.show = true;
-  // }
+  get dateTime(){
+    const today=moment(new Date()).format('yyyy-MM-DD');
+    const dateTime=this.$store.getters.getDate
+    return dateTime===today? '今天':dateTime
+  }
+
+  showPopup() {
+    this.show = true;
+  }
 
   showPopFn() {
     this.show = true;
@@ -73,8 +78,8 @@ export default class Detail extends Vue {
   }
 
   confirmFn() { // 确定按钮
-    this.timeValue = this.timeFormat(this.currentDate);
-    this.$emit('update:value', this.time);
+    const _time=moment(this.currentDate).format('yyyy-MM-DD');
+    this.$store.commit('updateRecord',{date:_time});
     this.show = false;
   }
 
@@ -82,19 +87,6 @@ export default class Detail extends Vue {
     this.show = false;
   }
 
-  timeFormat(time:Date) { // 时间格式化 2019-09-08
-    const DATE_FORMAT = 'yyyy-MM-DD'
-    // const today = moment(new Date()).format(DATE_FORMAT)
-    this.time  = moment(time).format(DATE_FORMAT)
-    // if(today===timeToday){
-    //   return '今天'
-    // }
-    return this.time
-  }
-
-  mounted() {
-    this.timeFormat(new Date());
-  }
 }
 </script>
 

@@ -33,8 +33,13 @@ import {Component, Prop} from "vue-property-decorator";
 
 @Component
 export default class Tags extends Vue{
-  @Prop() readonly selectTag!:string
-  @Prop() readonly type!:string
+  get type(){
+    return this.$store.getters.getType
+  }
+
+  get selectTag(){
+    return this.$store.getters.getSelect
+  }
   tagList1=[
     {name: '4', value: '餐费'},
     {name: '5', value: '早餐'},
@@ -58,7 +63,7 @@ export default class Tags extends Vue{
     {name: '22', value: '礼金'}
   ];
  toggle(tag: string): void {
-    this.$emit('update:selectTag',tag)
+    this.$store.commit('updateRecord',{selectTag:tag})
   }
 }
 </script>
