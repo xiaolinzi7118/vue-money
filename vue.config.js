@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
     lintOnSave: false,
+    publicPath: '/vue-money/',
     chainWebpack: config => {
         const dir = path.resolve(__dirname, 'src/assets/icons')
 
