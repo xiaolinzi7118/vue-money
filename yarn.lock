@@ -1497,6 +1497,13 @@
   resolved "https://registry.nlark.com/@types/cors/download/@types/cors-2.8.10.tgz#61cc8469849e5bcdd0c7044122265c39cec10cf4"
   integrity sha1-YcyEaYSeW83QxwRBIiZcOc7BDPQ=
 
+"@types/echarts@^4.9.7":
+  version "4.9.7"
+  resolved "https://registry.nlark.com/@types/echarts/download/@types/echarts-4.9.7.tgz?cache=0&sync_timestamp=1621240917724&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fecharts%2Fdownload%2F%40types%2Fecharts-4.9.7.tgz#4437fb503111f5b1ed7961e7b95c7ed09a4844a3"
+  integrity sha1-RDf7UDER9bHteWHnuVx+0JpIRKM=
+  dependencies:
+    "@types/zrender" "*"
+
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@4.17.19", "@types/express-serve-static-core@^4.17.18":
   version "4.17.19"
   resolved "https://registry.nlark.com/@types/express-serve-static-core/download/@types/express-serve-static-core-4.17.19.tgz#00acfc1632e729acac4f1530e9e16f6dd1508a1d"
@@ -1779,6 +1786,11 @@
   version "0.8.2"
   resolved "https://registry.nlark.com/@types/zen-observable/download/@types/zen-observable-0.8.2.tgz?cache=0&sync_timestamp=1621243939898&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fzen-observable%2Fdownload%2F%40types%2Fzen-observable-0.8.2.tgz#808c9fa7e4517274ed555fa158f2de4b4f468e71"
   integrity sha1-gIyfp+RRcnTtVV+hWPLeS09GjnE=
+
+"@types/zrender@*":
+  version "4.0.0"
+  resolved "https://registry.nlark.com/@types/zrender/download/@types/zrender-4.0.0.tgz#a6806f12ec4eccaaebd9b0d816f049aca6188fbd"
+  integrity sha1-poBvEuxOzKrr2bDYFvBJrKYYj70=
 
 "@typescript-eslint/eslint-plugin@^4.18.0":
   version "4.24.0"
@@ -5306,6 +5318,14 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.nlark.com/echarts/download/echarts-5.1.1.tgz#b186f162f017c555cfd67b12ede6762bdc3ddfda"
+  integrity sha1-sYbxYvAXxVXP1nsS7eZ2K9w939o=
+  dependencies:
+    tslib "2.0.3"
+    zrender "5.1.0"
 
 editorconfig@^0.15.3:
   version "0.15.3"
@@ -12332,6 +12352,11 @@ tsconfig@^7.0.0:
     strip-bom "^3.0.0"
     strip-json-comments "^2.0.0"
 
+tslib@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npm.taobao.org/tslib/download/tslib-2.0.3.tgz?cache=0&sync_timestamp=1617647074515&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
+  integrity sha1-jgdBrEX8DCJuWKF7/D5kubxsphw=
+
 tslib@^1.10.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.14.1"
   resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.14.1.tgz?cache=0&sync_timestamp=1617647074515&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
@@ -13635,3 +13660,10 @@ zen-observable@^0.8.0:
   version "0.8.15"
   resolved "https://registry.npm.taobao.org/zen-observable/download/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha1-lkFcUS2OP/2SCv04iWBOMLnqrBU=
+
+zrender@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.npm.taobao.org/zrender/download/zrender-5.1.0.tgz?cache=0&sync_timestamp=1618215776804&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fzrender%2Fdownload%2Fzrender-5.1.0.tgz#b6a84c3aa7ccc6642ee0519901ca4c0835c4d85e"
+  integrity sha1-tqhMOqfMxmQu4FGZAcpMCDXE2F4=
+  dependencies:
+    tslib "2.0.3"

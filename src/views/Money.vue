@@ -93,8 +93,8 @@ export default class Money extends Vue {
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
+  justify-content: space-between;
 }
-
 .count {
   font-size: 36px;
   padding: 9px 16px;
@@ -133,7 +133,7 @@ export default class Money extends Vue {
         width: 25*2%;
       }
 
-      $bg: #e3e7f1;
+      $bg: #ebafcb;
 
       &:nth-child(1) {
         background: $bg;

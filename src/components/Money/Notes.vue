@@ -2,7 +2,14 @@
   <div>
     <label class="notes">
       <span class="name">备注：</span>
-      <input type="text" placeholder="在这里输入备注" :value="value" @input="changeNotes($event)">
+      <div><van-field
+          @input="changeNotes($event)"
+          maxlength="12"
+          placeholder="在这里输入备注"
+          :value="value"
+      ></van-field>
+      </div>
+      <!--      <input type="text" placeholder="在这里输入备注" :value="value" @input="changeNotes($event)">-->
     </label>
   </div>
 </template>
@@ -10,21 +17,28 @@
 <script lang="ts">
 import Vue from "vue";
 import {Component} from "vue-property-decorator";
+import {Field} from "vant";
 
-@Component
-export default class Notes extends Vue {
-  get value(){
-    return  this.$store.getters.getNotes
+
+@Component({
+  components:{
+    [Field.name]:Field
   }
-  changeNotes(e:any){
-    this.$store.commit('updateRecord',{notes:e.target.value})
+})
+export default class Notes extends Vue {
+  get value() {
+    return this.$store.getters.getNotes
+  }
+
+  changeNotes(value) {
+    this.$store.commit('updateRecord', {notes: value})
   }
 }
 </script>
 
 <style scoped lang="scss">
 .notes {
-  padding: 12px 0 12px 16px;
+  padding-left: 16px;
   font-size: 14px;
   display: flex;
   align-items: center;

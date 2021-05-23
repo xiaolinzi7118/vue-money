@@ -5,7 +5,12 @@
       <div class="month">{{ currentMonth }} 月支出</div>
       <van-button round class="btn" @click="moreDate()" text='下个月'></van-button>
     </div>
-    <div class="none" v-if="list.length===0">当前没有数据哦~</div>
+    <div class="none" v-if="list.length===0">
+      当前没有数据哦~
+      <router-link to="/money" active-class="selected">
+        <van-button class="toMoney" round >记一笔</van-button>
+      </router-link>
+    </div>
     <div v-else>
       <ul class="count">
         <li>收入：{{ collect }}</li>
@@ -14,14 +19,12 @@
       </ul>
       <van-list finished-text="没有更多了">
         <van-cell v-for="item in list" :key="item.date">
-          <van-cell :title="item.date"/>
-          <van-cell v-for="i in item.list" :key="i.id"
-                    :title="i.selectTag">
-            <div class="list">
-              <div class="listNotes">{{ i.notes }}</div>
-              <div class="listOutput">{{ i.output===0?0:i.type + i.output }}</div>
-            </div>
-          </van-cell>
+          <div class="dateValue">{{item.date}}</div>
+          <div class="wrapper" v-for="i in item.list" :key="i.id">
+            <div>{{i.selectTag}}</div>
+            <div>{{ i.notes }}</div>
+            <div>{{ i.output===0?0:i.type + i.output }}</div>
+          </div>
         </van-cell>
       </van-list>
     </div>
@@ -126,8 +129,20 @@ export default class Detail extends Vue {
 }
 
 .none {
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
   text-align: center;
+  .toMoney{
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%,
+        rgba(213, 126, 231, 1) 0%, rgba(255, 107, 108, 1) 100%);
+    border-radius: 2rem;
+    border:1px solid red;
+    margin-top: 4rem;
+    padding: 1rem 2rem;
+    color: white;
+  }
 }
 
 .count {
@@ -141,16 +156,14 @@ export default class Detail extends Vue {
   padding: 0.2rem;
 }
 
-.list{
-  width: 80%;
+.dateValue{
+  padding: 6px 0;
+}
+
+.wrapper{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .listNotes{
-
-  }
-  .listOutput{
-    color:black;
-  }
+  padding: 6px 0;
 }
 </style>

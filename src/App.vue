@@ -16,4 +16,9 @@
    line-height: 1.5;
    background: #fff;
  }
+
+ #app{
+   max-width:500px;
+   margin: 0 auto;
+ }
 </style>

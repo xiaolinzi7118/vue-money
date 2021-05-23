@@ -6,10 +6,6 @@
         <Icon :name="tag.name"></Icon>
         <div>{{ tag.value }}</div>
       </li>
-      <li>
-        <Icon name="13" class="icon"></Icon>
-        <div>其他</div>
-      </li>
     </ul>
   </div>
   <div v-else>
@@ -18,10 +14,6 @@
           :class="{selected:selectTag===tag.value}">
         <Icon :name="tag.name"></Icon>
         <div>{{ tag.value }}</div>
-      </li>
-      <li>
-        <Icon name="13" class="icon"></Icon>
-        <div>其他</div>
       </li>
     </ul>
   </div>
@@ -49,7 +41,8 @@ export default class Tags extends Vue{
     {name: '9', value: '水果'},
     {name: '10', value: '买菜'},
     {name: '11', value: '烟酒'},
-    {name: '12', value: '购物'}
+    {name: '12', value: '购物'},
+    {name: '13', value: '其他'}
   ];
   tagList2 = [
     {name: '14', value: '工资'},
@@ -60,7 +53,8 @@ export default class Tags extends Vue{
     {name: '19', value: '红包'},
     {name: '20', value: '理财'},
     {name: '21', value: '投资'},
-    {name: '22', value: '礼金'}
+    {name: '22', value: '礼金'},
+    {name: '13', value: '其他'}
   ];
  toggle(tag: string): void {
     this.$store.commit('updateRecord',{selectTag:tag})
@@ -75,9 +69,9 @@ export default class Tags extends Vue{
   display: flex;
   border-top: 2px solid rgba(0, 0, 0, 0.05);
   background: #fbfcff;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   > li {
@@ -87,6 +81,7 @@ export default class Tags extends Vue{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     &.selected {
       background: white;
