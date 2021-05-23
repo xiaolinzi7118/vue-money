@@ -1,7 +1,7 @@
 <template>
     <div>
-      <div class="pickDate" @click="xxx">
-        <van-button round  plain type="primary" class="pick" @click="showPopFn">请选择日期</van-button>
+      <div class="pickDate" @click="showPopFn">
+        <van-button round  plain type="primary" class="pick">请选择日期</van-button>
         <van-field class="result" :value="dateTime" readonly/>
       </div>
       <div>
@@ -44,27 +44,22 @@ export default class Detail extends Vue {
   msg = '';
   timeValue = '今天';
 
-  get dateTime(){
+  get dateTime():string{
     const today=moment(new Date()).format('yyyy-MM-DD');
     const dateTime=this.$store.getters.getDate
     return dateTime===today? '今天':dateTime
   }
 
-  showPopup() {
-    this.show = true;
-  }
-
-  showPopFn() {
-    this.show = true;
-  }
 
 
-  xxx() {
+  showPopFn():void {
     this.show = true;
   }
 
 
-  formatter(type:string, val:string) {
+
+
+  formatter(type:string, val:string):string {
     if (type === 'year') {
       return val + '年';
     }
@@ -77,13 +72,13 @@ export default class Detail extends Vue {
     return val;
   }
 
-  confirmFn() { // 确定按钮
+  confirmFn():void { // 确定按钮
     const _time=moment(this.currentDate).format('yyyy-MM-DD');
     this.$store.commit('updateRecord',{date:_time});
     this.show = false;
   }
 
-  cancelFn() {
+  cancelFn() :void{
     this.show = false;
   }
 
