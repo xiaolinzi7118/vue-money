@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import moment from "moment";
+import {Toast} from "vant";
 
 
 
@@ -69,9 +70,11 @@ export default new Vuex.Store({
                 const list=JSON.parse(window.localStorage.getItem('recordList')||'[]');
                 state.recordList = (list.push({...state.record,id:new Date().getTime().toString(16)}), list)
                 window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
-                window.alert('保存成功')
+                // window.alert('保存成功')
+                Toast.success('已保存')
             }else{
-                window.alert('标签不能为空哦~')
+                // window.alert('标签不能为空哦~')
+                Toast.fail('请选择标签 ~')
             }
             state.record=resetRecord
         }

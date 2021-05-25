@@ -8,7 +8,6 @@ import Layout from '@/components/Layout.vue'
 import Icon from '@/components/Icon.vue'
 import 'vant/lib/index.css';
 
-
 Vue.config.productionTip = false
 
 Vue.component('Nav', Nav)
