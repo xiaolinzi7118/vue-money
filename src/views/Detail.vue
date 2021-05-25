@@ -51,7 +51,11 @@ export default class Detail extends Vue {
 
   get list() {
     const _list = this.$store.getters.getRecordList;
-    const allDays = [...new Set(_list.map((item: IRecord) => item.date))];
+    const allDays = [...new Set(_list.map((item: IRecord) => item.date))].sort((a:any,b:any)=>{
+      const aa:string=moment(a).format('DD');
+      const bb:string=moment(b).format('DD');
+      return Number(aa)-Number(bb)
+    });
     const newList = allDays.map(d => {
       const data = _list.filter((item: IRecord) => item.date === d)
       return {
@@ -78,8 +82,10 @@ export default class Detail extends Vue {
   getTotal(type: string) {
     const a = this.list.reduce((total: any[], val) => {
       const {list} = val;
-      total = [...total, ...list]
+      // total = [...total, ...list]
+      total=total.concat(list)
       return total
+
     }, []).filter((i: any) => i.type === type).reduce((total, val) => {
       return val.output + total
     }, 0)
