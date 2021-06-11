@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="statistics">
-      <div class="year">{{year}}年支出收入概览</div>
+      <div class="year">{{ year }}年支出收入概览</div>
       <section class="echarts_wrap">
         <div id="echarts"></div>
       </section>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment";
 // 引入基本模板
 let echarts = require("echarts/lib/echarts");
 // 引入饼状图组件
@@ -26,16 +26,16 @@ export default {
   data() {
     return {
       tallyData: this.$store.getters.getRecordList,
-      year:moment(new Date()).year()
+      year: moment(new Date()).year(),
     };
   },
-  computed:{
-    expenseMoney(){
-      return this.initMoney('-')
+  computed: {
+    expenseMoney() {
+      return this.initMoney("-");
     },
-    incomeMoney(){
-      return this.initMoney('+')
-    }
+    incomeMoney() {
+      return this.initMoney("+");
+    },
   },
   methods: {
     //   初始化echarts表
@@ -49,9 +49,9 @@ export default {
         },
         series: [
           {
-            name: "支出统计",
+            name: "统计",
             type: "pie",
-            radius: "55%",
+            radius: ["25%", "50%"],
             center: ["50%", "50%"],
             data: [
               {
@@ -59,7 +59,7 @@ export default {
                 name: "支出",
                 itemStyle: {
                   color: "#6fcf97",
-                  fontSize:"16px",
+                  fontSize: "16px",
                 },
               },
               {
@@ -67,10 +67,17 @@ export default {
                 name: "收入",
                 itemStyle: {
                   color: "#eb5757",
-                  fontSize:"16px",
+                  fontSize: "16px",
                 },
               },
             ],
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+            },
           },
         ],
       };
@@ -79,13 +86,15 @@ export default {
     },
     //初始化收入和支出总金额
     initMoney(type) {
-      const a=this.tallyData.filter(item=>moment(item.date).year()===this.year)
-      const b=a.filter(i=>i.type===type).map(l=>l.output);
-      const value=b.reduce((total, val) => {
-        return val + total
+      const a = this.tallyData.filter(
+        (item) => moment(item.date).year() === this.year
+      );
+      const b = a.filter((i) => i.type === type).map((l) => l.output);
+      const value = b.reduce((total, val) => {
+        return val + total;
       }, 0);
-      return value
-    }
+      return value;
+    },
   },
   mounted() {
     this.$nextTick(() => this.initEcharts());
@@ -106,10 +115,14 @@ export default {
       height: 300px;
     }
   }
-  .year{
+  .year {
     background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%,
-        rgba(213, 126, 231, 1) 0%, rgba(255, 107, 108, 1) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(213, 126, 231, 1) 0%,
+      rgba(255, 107, 108, 1) 100%
+    );
     color: white;
     text-align: center;
     padding: 1rem;
@@ -120,8 +133,12 @@ export default {
     text-align: center;
     color: white;
     background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%,
-        rgba(213, 126, 231, 1) 0%, rgba(255, 107, 108, 1) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(213, 126, 231, 1) 0%,
+      rgba(255, 107, 108, 1) 100%
+    );
     border-radius: 10px;
   }
 }
