@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/vue-money/precache-manifest.0b238412a6ac780a035cdc93818e7637.js"
+  "/vue-money/precache-manifest.17c5b46fce3151f89110721143f9cc17.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "my-money"});
